@@ -1,33 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Container from '@mui/material/Container'
+import { useSelector } from 'react-redux'
+import { Box } from '@mui/material'
+import FormDialog from './components/FormDialog'
 import './App.css'
+import WelcomeBox from './components/WelcomeBox'
+import { GAME_VIEW } from './app/types'
+import LeaderboardButton from './components/LeaderBoardButton'
+import LeaderBoardPopup from './components/LeaderBoardPopup'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const user = useSelector(state => state.user.value)
+  const view = useSelector(state => state.view.value)
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <>  
+        <LeaderboardButton />
+        <LeaderBoardPopup />
+        {view===GAME_VIEW? <>G</> : (!user?
+          <> <Container maxWidth="sm">
+          <Box sx={{ my: 4 }}>
+            <FormDialog 
+             buttonTitle="Enter Game"
+            />
+          </Box>
+        </Container> </>: <> <WelcomeBox user={user}/> </>)
+       }
     </>
   )
 }
