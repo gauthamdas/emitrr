@@ -7,6 +7,7 @@ import WelcomeBox from './components/WelcomeBox'
 import { GAME_VIEW } from './app/types'
 import LeaderboardButton from './components/LeaderBoardButton'
 import LeaderBoardPopup from './components/LeaderBoardPopup'
+import GameArea from './components/GameArea'
 
 function App() {
   const user = useSelector(state => state.user.value)
@@ -15,7 +16,7 @@ function App() {
     <>  
         <LeaderboardButton />
         <LeaderBoardPopup />
-        {view===GAME_VIEW? <>G</> : (!user?
+        {view===GAME_VIEW? <><GameArea /></> : (!user?
           <> <Container maxWidth="sm">
           <Box sx={{ my: 4 }}>
             <FormDialog 
