@@ -8,6 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch } from 'react-redux';
 import { setUserName } from '../features/user/userSlice';
+import axios from 'axios';
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -26,6 +27,9 @@ export default function FormDialog(props) {
     if (!data) { return }
     dispatch(setUserName(data))
     localStorage.setItem('username',data)
+    axios.post(import.meta.env.VITE_APP_API_URL+'/api/users/new', {
+      username: data
+    })
   }
 
   return (
