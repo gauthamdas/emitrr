@@ -9,18 +9,7 @@ export const leaderboardSlice = createSlice({
     showLeaderBoard: state => {
       state.value = {
         loading: true,
-        data: [{
-          rank:1,
-          username: 'test1',
-          points: 100
-        },{
-          rank:2,
-          username: 'test2',
-          points: 90
-        },{
-          rank:3,
-          username: 'test3',
-          points: 80}]
+        data: []
       }
     },
     hideLeaderBoard: state => {

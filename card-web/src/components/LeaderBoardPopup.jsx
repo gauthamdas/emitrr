@@ -8,13 +8,14 @@ import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideLeaderBoard } from '../features/leaderboard/leaderboardSlice';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const LeaderBoardPopup = () => {
   
   const leaderboard = useSelector(state => state.leaderboard.value)
   const dispatch = useDispatch();
 
-  console.log(leaderboard)
+  // console.log(leaderboard)
   
   const handleClose = () => {
     dispatch(hideLeaderBoard())
@@ -26,8 +27,14 @@ const LeaderBoardPopup = () => {
     <>
       
       <Dialog open={Boolean(leaderboard)} onClose={handleClose}>
-        <DialogTitle>Leaderboard</DialogTitle>
+        <DialogTitle><b>Leaderboard</b></DialogTitle>
         <DialogContent>
+        {leaderboard?.loading? <CircularProgress color="inherit" sx={{
+            // center this
+            position: 'relative',
+            left: '33%',
+            top: '50%',
+        }} />:(leaderboard?
           <Table>
             <TableHead>
               <TableRow>
@@ -36,6 +43,7 @@ const LeaderBoardPopup = () => {
                 <TableCell>Points</TableCell>
               </TableRow>
             </TableHead>
+            
             <TableBody>
               {leaderboard?.data.map((row) => (
                 <TableRow key={row.rank}>
@@ -45,7 +53,8 @@ const LeaderBoardPopup = () => {
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
+          </Table>:<></>)
+}
         </DialogContent>
       </Dialog>
     </>
